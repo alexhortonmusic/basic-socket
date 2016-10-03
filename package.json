@@ -1,0 +1,29 @@
+{
+  "name": "basic-socket",
+  "version": "1.0.0",
+  "description": "Basic chat app using socket.io, express, node.js, et al.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexhortonmusic/basic-socket.git"
+  },
+  "author": "Alex Horton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexhortonmusic/basic-socket/issues"
+  },
+  "homepage": "https://github.com/alexhortonmusic/basic-socket#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.2",
+    "socket.io": "^1.4.8"
+  },
+  "devDependencies": {
+    "bower": "^1.7.9"
+  }
+}
