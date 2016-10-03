@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Socket Chat</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div ng-app='socket-chat'>
+      <div class='container'>
+        <div ng-view></div>
+      </div>
+    </div>
+    <script src='/lib/angular/angular.min.js'></script>
+    <script src='/lib/angular-route/angular-route.min.js'></script>
+    <script src='/lib/socket.io-client/socket.io.js'></script>
+    <script src='/app/main.js'></script>
+  </body>
+</html>
