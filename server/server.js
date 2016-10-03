@@ -26,15 +26,16 @@ const Msg = mongoose.model('msg', {
   body: String
 })
 
-// app.get('/api/messages', )
+app.get('/api/msgs', (req, res, err) =>
+  Msg
+    .find()
+    .then(msgs => res.json({ msgs }))
+    .catch(err)
+)
 
 app.use('/api', (req, res) =>
   res.status(404).send({ code: 404, status: 'Not Found' })
 )
-
-// app.use((req, res) =>
-//   res.sendFile(process.cwd() + '/client/index.html')
-// )
 
 app.use((err, req, res, next) =>
   res.status(500).send({ code: 500, status: 'Internal Server Error', detail: err.stack })
@@ -49,5 +50,15 @@ mongoose.connect(MONGODB_URL, () => {
 io.on('connection', socket => {
   console.log(`Socket connected: ${socket.id}`)
   socket.on('disconnect', () => console.log(`Socket disconnected: ${socket.id}`))
-  // socket.on newMsg
+  socket.on('postMsg', createMsg)
 })
+
+const createMsg = (msg) => {
+  Msg
+    .create(msg)
+    .then(msg => {
+      io.emit('newMsg', msg)
+      return msg
+    })
+    .catch(console.error)
+}

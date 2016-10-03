@@ -12,10 +12,10 @@ angular
         controller: 'MainCtrl',
         templateUrl: 'partials/main.html'
       })
-      // .when('/chat', {
-      //   controller: 'ChatCtrl',
-      //   templateUrl: 'partials/chat.html'
-      // })
+      .when('/chat', {
+        controller: 'ChatCtrl',
+        templateUrl: 'partials/chat.html'
+      })
 
     $locationProvider.html5Mode({
       enabled: true,
@@ -26,4 +26,34 @@ angular
     $http
       .get('/api/title')
       .then( ({ data: { title }}) => $scope.title = title)
+  })
+  .controller('ChatCtrl', function ($scope, $http) {
+    $scope.sendMsg = () => {
+      const msg = {
+        user: $scope.user,
+        body: $scope.body
+      }
+
+      $scope.user = ''
+      $scope.body = ''
+
+      socket.emit('postMsg', msg)
+    }
+    // get title
+    $http
+      .get('/api/title')
+      .then( ({ data: { title }}) => $scope.title = title)
+
+    // populate initial msgs
+    $http
+      .get('/api/msgs')
+      .then(({ data: { msgs }}) =>
+        $scope.msgs = msgs
+    )
+
+    // retrieve new msgs
+    socket.on('newMsg', msg => {
+      $scope.msgs.push(msg)
+      $scope.$apply()
+    })
   })
